@@ -1,0 +1,57 @@
+name: Demo Lab
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      username:
+        description: "Your name?"
+        type: string
+        default: "Guest"
+      server:
+        description: "Which server?"
+        type: choice
+        options: [test, live]
+        default: test
+      shout:
+        description: "Say it loudly?"
+        type: boolean
+        default: false
+
+env:
+  APP_NAME: demo-lab
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Who started me
+        run: |
+          echo "Event:  ${{ github.event_name }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Actor:  ${{ github.actor }}"
+
+      - name: Show my answers
+        run: |
+          echo "App:    $APP_NAME"
+          echo "Name:   ${{ inputs.username || 'Guest' }}"
+          echo "Server: ${{ inputs.server || 'test' }}"
+          echo "Shout:  ${{ inputs.shout }}"
+
+      - name: Only for live
+        if: inputs.server == 'live'
+        run: echo "Careful! LIVE server"
+
+      - name: Only when shouting
+        if: inputs.shout
+        run: echo "HELLO ${{ inputs.username }}!!!"
+
+      - name: Only on push
+        if: github.event_name == 'push'
+        run: echo "A push started this"
+
+      - name: Save and read a file
+        run: |
+          echo "${{ inputs.username || 'Guest' }}" > visitor.txt
+          cat visitor.txt
