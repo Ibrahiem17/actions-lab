@@ -55,6 +55,3 @@ jobs:
         run: |
           echo "${{ inputs.username || 'Guest' }}" > visitor.txt
           cat visitor.txt
-
-      - name: Read a missing file
-        run: cat missing.txt
