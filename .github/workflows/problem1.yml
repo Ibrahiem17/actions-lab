@@ -7,13 +7,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Get code
+        uses: actions/checkout@v4
+
       - name: Debug
         run: |
           pwd
           ls -la
-          
-      - name: Get code
-        uses: actions/checkout@v4
+
       - name: Install deps
         run: npm ci
 
