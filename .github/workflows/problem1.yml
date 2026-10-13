@@ -1,0 +1,14 @@
+name: Problem 1
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install deps
+        run: npm ci
+
+      - name: Run tests
+        run: echo "Running tests..."
