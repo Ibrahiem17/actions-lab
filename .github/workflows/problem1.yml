@@ -15,6 +15,13 @@ jobs:
           pwd
           ls -la
 
+      - name: Show both files
+        run: |
+          echo "--- package.json ---"
+          cat package.json
+          echo "--- package-lock.json ---"
+          cat package-lock.json
+
       - name: Install deps
         run: npm ci
 
