@@ -1,16 +1,14 @@
-name: Problem 5
-on:
-  workflow_dispatch:
-jobs:
-  download:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download (simulated flaky network)
         run: |
-          echo "Downloading package..."
-          if [ $((RANDOM % 2)) -eq 0 ]; then
+          for i in 1 2 3; do
+            echo "Attempt $i"
+            echo "Downloading package..."
+            if [ $((RANDOM % 2)) -ne 0 ]; then
+              echo "Download complete"
+              exit 0
+            fi
             echo "npm error code ECONNRESET"
             echo "npm error network aborted"
-            exit 1
-          fi
-          echo "Download complete"
+            sleep 2
+          done
+          echo "All 3 attempts failed"
+          exit 1
