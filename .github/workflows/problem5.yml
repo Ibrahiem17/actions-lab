@@ -10,7 +10,7 @@ jobs:
           for i in 1 2 3; do
             echo "Attempt $i"
             echo "Downloading package..."
-            if [ $((RANDOM % 2)) -ne 0 ]; then
+            if [ "$i" -eq 3 ]; then
               echo "Download complete"
               exit 0
             fi
