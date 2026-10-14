@@ -1,3 +1,11 @@
+name: Problem 5
+on:
+  workflow_dispatch:
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download (simulated flaky network)
         run: |
           for i in 1 2 3; do
             echo "Attempt $i"
